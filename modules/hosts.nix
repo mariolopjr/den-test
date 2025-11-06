@@ -33,14 +33,14 @@
     # hw should not be invoked if the context is exactly `{ dev }`
     # other contexts like `{ dev, foo }` do not invoke hw
     hw = { device }: {
-      nixos.diskito.device = device;
-      nixos.diskito.mountPoint = "/";
+      nixos.diskito.disks.main.device = device;
+      nixos.diskito.disks.main.mountPoint = "/";
     };
 
     # same, according to tests, vm is invoked only for `{ dev, mountAt }`
     vm = { device, mountAt }: {
-      nixos.diskito.device = device;
-      nixos.diskito.mountPoint = mountAt;
+      nixos.diskito.disks.main.device = device;
+      nixos.diskito.disks.main.mountPoint = mountAt;
     };
   in {
     __functor = den.lib.parametric true;
@@ -50,7 +50,7 @@
 
        {
          nixos.imports = [ ./_diskito.nix ];
-         nixos.diskito.name = "Small";
+         nixos.diskito.disks.main.name = "Small";
        }
     ];
   };
