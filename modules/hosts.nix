@@ -1,15 +1,25 @@
-{ inputs, config, den, ... }:
+{ inputs, config, den, pro, ... }:
 {
   den.hosts.x86_64-linux.bones.users.fido = { };
-  den.hosts.x86_64-linux.laptop.users.fido = { };
-
-  den.aspects.laptop.includes = [
-    (den.aspects.diskito { device = "/dev/floppy"; })
-  ];
+  den.hosts.x86_64-linux.bones-vm.users.fido = { };
 
   den.aspects.bones.includes = [
-    (den.aspects.diskito { device = "/dev/floppy"; mountAt = "/mnt/A";})
+    pro.bones._.hw
   ];
+
+  den.aspects.bones-vm.includes = [
+    pro.bones._.vm
+  ];
+
+  pro.bones._ = {
+    hw.includes = [
+      (den.aspects.diskito { device = "/dev/floppy"; mountAt = "/mnt/A";})
+    ];
+    vm.includes = [
+      (den.aspects.diskito { device = "/dev/floppy"; })
+    ];
+  };
+
 
   den.aspects.diskito = let 
     # two parametric aspects just like the ones you have
