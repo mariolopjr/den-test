@@ -4,10 +4,12 @@
   den.hosts.x86_64-linux.bones-vm.users.fido = { };
 
   den.aspects.bones.includes = [
+    pro.bones._.base
     pro.bones._.hw
   ];
 
   den.aspects.bones-vm.includes = [
+    pro.bones._.base
     pro.bones._.vm
   ];
 
@@ -17,6 +19,9 @@
     ];
     vm.includes = [
       (den.aspects.diskito { device = "/dev/floppy"; })
+    ];
+    base.includes = [
+      pro.set-tpm
     ];
   };
 
